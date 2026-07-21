@@ -1,0 +1,12 @@
+artifacts/
+bin/
+obj/
+TestResults/
+**/bin/
+**/obj/
+.git/
+.github/
+tests/
+e2e/
+img/
+node_modules/
