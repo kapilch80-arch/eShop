@@ -83,6 +83,21 @@ jobs:
             ghcr.io/kapilch80-arch/eshop-catalog-api:${{ github.sha }}
             ghcr.io/kapilch80-arch/eshop-catalog-api:latest
 
+      - name: Generate SBOM (CycloneDX)
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: ghcr.io/kapilch80-arch/eshop-catalog-api:${{ github.sha }}
+          format: cyclonedx
+          output: sbom.cyclonedx.json
+          exit-code: '0'
+
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-catalog-api-${{ github.sha }}
+          path: sbom.cyclonedx.json
+          retention-days: 90
+
       - name: Scan image with Trivy (report to GitHub Security tab)
         uses: aquasecurity/trivy-action@v0.36.0
         with:
